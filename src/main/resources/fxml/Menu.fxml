@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXProgressSpinner?>
 <?import io.github.palexdev.mfxcore.controls.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23" fx:controller="edu.utn.trackademia.controller.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utn.trackademia.controller.MenuController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <MFXProgressSpinner layoutX="275.0" layoutY="175.0" />
             <Label layoutX="288.0" layoutY="119.0" text="Menuu" />
          </children>
       </Pane>

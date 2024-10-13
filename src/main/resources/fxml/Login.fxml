@@ -35,7 +35,7 @@
                   <Image url="@../assets/avatar.png" />
                </image>
             </ImageView>
-            <MFXProgressSpinner layoutX="275.0" layoutY="175.0" visible="false" />
+            <MFXProgressSpinner fx:id="loadingSpinner" layoutX="275.0" layoutY="175.0" visible="false" />
             <MFXButton fx:id="loginButton" layoutX="276.0" layoutY="313.0" text="Log in">
                <font>
                   <Font name="Poppins Regular" size="12.0" />

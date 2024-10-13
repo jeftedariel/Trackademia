@@ -5,6 +5,7 @@ package edu.utn.trackademia.controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 
+import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,15 +29,19 @@ public class LoginController implements Initializable {
     
     @FXML
     private Button loginButton;
+    @FXML
+    private MFXProgressSpinner loadingSpinner;
     
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
+        
         loginButton.setOnAction(event -> menu());
     }    
     
     
     
     private void menu() {
+        loadingSpinner.setVisible(true);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menu.fxml"));
             Scene scene = new Scene(loader.load());
@@ -45,6 +50,8 @@ public class LoginController implements Initializable {
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace(); // Manejar la excepción de carga de FXML
+        } finally{
+            loadingSpinner.setVisible(false);
         }
     }
     
