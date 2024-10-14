@@ -28,6 +28,7 @@ public class Trackademia extends Application  {
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();  
         
         

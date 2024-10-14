@@ -8,6 +8,9 @@ import edu.utn.trackademia.dao.UserDAO;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,7 +43,6 @@ public class LoginController implements Initializable {
     @FXML
     private MFXPasswordField password;
 
-    
     //Events initialization
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,12 +53,11 @@ public class LoginController implements Initializable {
         loginButton.setOnAction(event -> menu());
     }
 
-    
     //Validation of data form
     private void validate() {
         loginButton.setDisable(!(email.getText().matches("[A-Za-z0-9\\._%+\\-]+@[A-Za-z0-9\\.\\-]+\\.[A-Za-z]{2,}") && password.getText().matches("[\\S]+")));
     }
-    
+
     //If auth correct open menu as main stage
     private void menu() {
         loadingSpinner.setVisible(true);
@@ -66,14 +67,24 @@ public class LoginController implements Initializable {
                 Scene scene = new Scene(loader.load());
 
                 Stage stage = (Stage) loginButton.getScene().getWindow();
+                
+
                 stage.setScene(scene);
+                stage.centerOnScreen();
             } catch (IOException e) {
-                e.printStackTrace(); 
-            } finally{
+                e.printStackTrace();
+            } finally {
                 loadingSpinner.setVisible(false);
             }
+        } else {
+            loadingSpinner.setVisible(false);
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error de autenticación");
+            alert.setHeaderText(null);
+            alert.setContentText("Usuario o contraseña incorrectos.");
+            alert.showAndWait();
         }
-        loadingSpinner.setVisible(false);
+        
     }
 
 }
