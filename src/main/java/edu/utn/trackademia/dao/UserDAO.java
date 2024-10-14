@@ -27,7 +27,15 @@ public class UserDAO {
     public UserDAO() {
         this.adapter = DBAdapterFactory.getAdapter();
     }
-
+    
+    public boolean authUser(String email, String password){
+        for (User n : getUsers()) {
+             if(n.email().equals(email) && n.password().equals(password)){
+                 return true;
+             }
+        }
+        return false;
+    }
 
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
