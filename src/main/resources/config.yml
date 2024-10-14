@@ -1,0 +1,9 @@
+## Database Config.
+database:
+  database: trackademia
+  host: localhost
+  port: 3306
+  username: root
+  password: 1234
+  # MariaDBAdapter, MySQLAdapter  <-  DBs available
+  type: MariaDBAdapter
