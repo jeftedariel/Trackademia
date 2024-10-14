@@ -1,6 +1,6 @@
 ## Database Config.
 database:
-  database: universidad
+  database: trackademia
   host: localhost
   port: 3306
   username: root

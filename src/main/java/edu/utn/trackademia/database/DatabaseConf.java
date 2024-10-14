@@ -9,5 +9,5 @@ package edu.utn.trackademia.database;
  * @author jefte
  */
 public record DatabaseConf(String host, int port, String username, String database, String password, String dbtype) {
-
+    // A simple record to store dbconf :)
 }

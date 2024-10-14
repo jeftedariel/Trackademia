@@ -19,7 +19,7 @@ public class DBAdapterFactory {
     
     public static IDBAdapter getAdapter(){
         ConfigHandler ch = new ConfigHandler();
-        try{
+        try{ //Try to get that db adapter interface
             return (IDBAdapter)Class.forName("edu.utn.trackademia.database."+ch.getDatabaseConfig().dbtype()).newInstance();
         } catch (Exception e){
             e.printStackTrace();
