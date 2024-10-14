@@ -30,9 +30,9 @@
                   <Font name="Poppins Black" size="29.0" />
                </font>
             </Label>
-            <ImageView fitHeight="42.0" fitWidth="70.0" layoutX="274.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="75.0" fitWidth="158.0" layoutX="230.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/avatar.png" />
+                  <Image url="@../assets/icon.png" />
                </image>
             </ImageView>
             <MFXProgressSpinner fx:id="loadingSpinner" layoutX="275.0" layoutY="175.0" visible="false" />
