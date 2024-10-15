@@ -68,7 +68,7 @@ public class LoginController implements Initializable {
         if(email.getText().isBlank() || password.getText().isBlank()){
             loadingSpinner.setVisible(false);
             Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Alerta");
+            alert.setTitle("Warning");
             alert.setHeaderText(null);
             alert.setContentText("Please enter your email and password to log in.");
             alert.showAndWait();
@@ -78,7 +78,7 @@ public class LoginController implements Initializable {
         if (!dao.authUser(email.getText(), password.getText())) {
             loadingSpinner.setVisible(false);
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error de autenticación");
+            alert.setTitle("Authentication Error");
             alert.setHeaderText(null);
             alert.setContentText("Incorrect Email or Password.");
             alert.showAndWait();
