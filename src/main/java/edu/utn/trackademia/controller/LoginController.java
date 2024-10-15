@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
         loginButton.setOnAction(event -> menu());
     }
 
-    //Validation of data form
+    //Validation of data form%+\\-]+@[
     private void validate() {
         loginButton.setDisable(!(email.getText().matches("[A-Za-z0-9\\._%+\\-]+@[A-Za-z0-9\\.\\-]+\\.[A-Za-z]{2,}") && password.getText().matches("[\\S]+")));
     }
@@ -61,30 +61,45 @@ public class LoginController implements Initializable {
     //If auth correct open menu as main stage
     private void menu() {
         loadingSpinner.setVisible(true);
-        if (dao.authUser(email.getText(), password.getText())) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menu.fxml"));
-                Scene scene = new Scene(loader.load());
-
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                
-
-                stage.setScene(scene);
-                stage.centerOnScreen();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                loadingSpinner.setVisible(false);
-            }
-        } else {
+        
+        //Check and auth area ->  
+        
+        //Case textFields in blank or empty.
+        if(email.getText().isBlank() || password.getText().isBlank()){
+            loadingSpinner.setVisible(false);
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Alerta");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter your email and password to log in.");
+            alert.showAndWait();
+            return;
+        }
+        //Case incorrect email/password
+        if (!dao.authUser(email.getText(), password.getText())) {
             loadingSpinner.setVisible(false);
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error de autenticación");
             alert.setHeaderText(null);
-            alert.setContentText("Usuario o contraseña incorrectos.");
+            alert.setContentText("Incorrect Email or Password.");
             alert.showAndWait();
+            return;
         }
         
+        //If Everything is correct! :D 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menu.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            loadingSpinner.setVisible(false);
+        }
+
     }
 
 }

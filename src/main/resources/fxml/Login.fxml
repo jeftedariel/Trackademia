@@ -36,7 +36,7 @@
                </image>
             </ImageView>
             <MFXProgressSpinner fx:id="loadingSpinner" layoutX="275.0" layoutY="175.0" visible="false" />
-            <MFXButton fx:id="loginButton" layoutX="276.0" layoutY="313.0" text="Log in">
+            <MFXButton fx:id="loginButton" layoutX="266.0" layoutY="311.0" prefHeight="25.0" prefWidth="69.0" style="-fx-background-color: #70a74d;" text="Log in">
                <font>
                   <Font name="Poppins Regular" size="12.0" />
                </font>
