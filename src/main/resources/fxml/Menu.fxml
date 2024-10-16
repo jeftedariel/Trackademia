@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utn.trackademia.controller.MenuController">
    <children>
-      <Pane layoutX="74.0" layoutY="14.0" prefHeight="34.0" prefWidth="1107.0" style="-fx-background-color: #19355c;" />
-      <MFXFontIcon layoutX="330.0" layoutY="201.0" />
+      <Pane layoutY="-2.0" prefHeight="58.0" prefWidth="1280.0" style="-fx-background-color: #19355c;">
+         <children>
+            <ImageView fx:id="logout" fitHeight="30.0" fitWidth="30.0" layoutX="1224.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/logout.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id = "user" fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/user.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
    </children>
 </AnchorPane>
