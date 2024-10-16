@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.mfxcore.controls.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utn.trackademia.controller.MenuController">
    <children>
@@ -14,11 +16,16 @@
                   <Image url="@../assets/logout.png" />
                </image>
             </ImageView>
-            <ImageView fx:id = "user" fitHeight="30.0" fitWidth="30.0" layoutX="35.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="user" fitHeight="30.0" fitWidth="44.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/user.png" />
                </image>
             </ImageView>
+            <Label fx:id="username" layoutX="65.0" layoutY="14.0" prefHeight="31.0" prefWidth="304.0" text="Name Surname" textFill="WHITE">
+               <font>
+                  <Font name="Poppins Regular" size="18.0" />
+               </font>
+            </Label>
          </children></Pane>
    </children>
 </AnchorPane>
