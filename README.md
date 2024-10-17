@@ -1,6 +1,7 @@
 # Trackademia 📚
+![oie_596bapS3FpY5](https://github.com/user-attachments/assets/32b34612-0075-4934-894c-731628649633)
 
-![Default_A_modern_minimalist_logo_design_for_Trackademia_a_univ_2_c810c2b9-8a92-4f5e-9ecd-795e3f87c6bd_0_1_-removebg-preview](https://github.com/user-attachments/assets/c9a2c2bf-024d-4e2a-8339-f18048fdf12d)
+
 
 A simple & OpenSource academic management system designed to streamline course offerings, student enrollment, and professor assignments for educational institutions.
 
@@ -32,6 +33,5 @@ Here is the translation of the instructions to English:
 6. **Create a pull request**
    Once everything necessary has been done in the branch, a pull request should be opened with a title and description indicating what was done, in order to integrate the changes.
    
-![Default_A_modern_minimalist_logo_design_for_Trackademia_a_univ_2_c810c2b9-8a92-4f5e-9ecd-795e3f87c6bd_0](https://github.com/user-attachments/assets/7762e559-16e3-4ee1-936a-85329e854d1d)
 
    
