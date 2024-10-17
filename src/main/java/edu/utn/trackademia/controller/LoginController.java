@@ -66,22 +66,23 @@ public class LoginController implements Initializable {
         
         //Case textFields in blank or empty.
         if(email.getText().isBlank() || password.getText().isBlank()){
-            loadingSpinner.setVisible(false);
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText(null);
             alert.setContentText("Please enter your email and password to log in.");
             alert.showAndWait();
+            loadingSpinner.setVisible(false);
             return;
         }
         //Case incorrect email/password
         if (!dao.authUser(email.getText(), password.getText())) {
-            loadingSpinner.setVisible(false);
+            
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Authentication Error");
             alert.setHeaderText(null);
             alert.setContentText("Incorrect Email or Password.");
             alert.showAndWait();
+            loadingSpinner.setVisible(false);
             return;
         }
         
@@ -96,10 +97,8 @@ public class LoginController implements Initializable {
             stage.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            loadingSpinner.setVisible(false);
         }
-
+        loadingSpinner.setVisible(false);
     }
 
 }

@@ -52,7 +52,7 @@ public class UserDAO {
             while (resultSet.next()) {
                 String email =  resultSet.getString("correo");
                 String password = resultSet.getString("contraseña");
-                String role = resultSet.getString("rol");
+                int role = resultSet.getInt("rol");
                 String name = resultSet.getString("Nombre");
                 String surname = resultSet.getString("Apellidos");
                 

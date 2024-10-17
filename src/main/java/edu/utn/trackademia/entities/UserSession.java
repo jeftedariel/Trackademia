@@ -11,7 +11,8 @@ package edu.utn.trackademia.entities;
 public class UserSession {
 
     public static UserSession instance;
-    String name, surname, email, role;
+    String name, surname, email;
+    int role;
 
     private UserSession() {
     }
@@ -23,7 +24,7 @@ public class UserSession {
         return instance;
     }
 
-    public void login(String name, String surname, String email, String role){
+    public void login(String name, String surname, String email, int role){
         this.name=name;
         this.surname=surname;
         this.email=email;
@@ -34,7 +35,7 @@ public class UserSession {
         this.name=null;
         this.surname=null;
         this.email=null;
-        this.role=null;
+        this.role=0;
     }
     
     
@@ -76,11 +77,11 @@ public class UserSession {
         this.email = email;
     }
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 

@@ -8,6 +8,6 @@ package edu.utn.trackademia.entities;
  *
  * @author jefte
  */
-public record User(String email, String password, int role, String name, String surname) {
+public record Permission(String name) {
 
 }

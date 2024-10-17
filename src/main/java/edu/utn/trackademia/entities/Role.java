@@ -4,10 +4,15 @@
  */
 package edu.utn.trackademia.entities;
 
+import java.util.Set;
+
 /**
  *
  * @author jefte
  */
-public record User(String email, String password, int role, String name, String surname) {
-
+public record Role(String name, Set<Permission> permissions) {
+    //Retrieve 
+    public boolean hasPermission(String permission){
+        return this.permissions.stream().anyMatch(n->n.name().equals(name));
+    }
 }

@@ -4,6 +4,7 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.dao.RoleDAO;
 import edu.utn.trackademia.entities.UserSession;
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +31,9 @@ public class MenuController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    RoleDAO rdao = new RoleDAO(); 
+    
+    
     @FXML
     private ImageView logout;
     
@@ -51,6 +55,10 @@ public class MenuController implements Initializable {
         
         educational.setCollapsible(false);
         administration.setCollapsible(false);
+        
+        educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Educational")));
+        
+        administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Administration")));
         
     }
 
