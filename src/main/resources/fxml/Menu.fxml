@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.mfxcore.controls.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utn.trackademia.controller.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.utn.trackademia.controller.MenuController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
+      <Pane layoutY="-2.0" prefHeight="58.0" prefWidth="1280.0" style="-fx-background-color: #19355c;">
          <children>
-            <Label layoutX="288.0" layoutY="119.0" text="Menuu" />
-         </children>
-      </Pane>
+            <ImageView fx:id="logout" fitHeight="30.0" fitWidth="30.0" layoutX="1224.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/logout.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="user" fitHeight="30.0" fitWidth="44.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/user.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="username" layoutX="65.0" layoutY="14.0" prefHeight="31.0" prefWidth="304.0" text="Name Surname" textFill="WHITE">
+               <font>
+                  <Font name="Poppins Regular" size="18.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <TitledPane fx:id="educational" animated="false" layoutX="30.0" layoutY="74.0" prefHeight="280" prefWidth="1226.0" style="" text="Educational">
+          <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b2b3b7;" />
+        </content>
+      </TitledPane>    
+      <TitledPane fx:id="administration" animated="false" layoutX="30.0" layoutY="400.0" prefHeight="280.0" prefWidth="1226.0" style="" text="Administration">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b2b3b7;" />
+        </content>
+      </TitledPane>
    </children>
 </AnchorPane>

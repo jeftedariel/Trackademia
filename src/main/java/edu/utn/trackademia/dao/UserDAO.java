@@ -7,6 +7,7 @@ package edu.utn.trackademia.dao;
 import edu.utn.trackademia.database.DBAdapterFactory;
 import edu.utn.trackademia.database.IDBAdapter;
 import edu.utn.trackademia.entities.User;
+import edu.utn.trackademia.entities.UserSession;
 
 import java.util.ArrayList;
 import java.sql.Connection;
@@ -33,6 +34,7 @@ public class UserDAO {
     public boolean authUser(String email, String password){
         for (User n : getUsers()) {
              if(n.email().equals(email) && n.password().equals(password)){
+                 UserSession.getInstance().login(n.name(), n.surname(),n.email(), n.role());
                  return true;
              }
         }
@@ -43,7 +45,7 @@ public class UserDAO {
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
         try {
-            String consultSQL = "SELECT u.correo, u.contraseña, u.rol, p.id_persona, p.Nombre, p.Apellidos, p.Telefono, p.fecha_nacimiento FROM usuarios u JOIN personas p ON u.persona = p.id_persona;";
+            String consultSQL = "SELECT u.correo, u.contraseña, u.rol, p.id_persona, p.Nombre, p.Apellidos, p.Telefono, p.fecha_nacimiento FROM usuarios u LEFT JOIN personas p ON u.persona = p.id_persona;";
             Connection connection = this.adapter.getConnection();
             PreparedStatement ps = connection.prepareStatement(consultSQL);
             ResultSet resultSet = ps.executeQuery();

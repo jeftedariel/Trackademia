@@ -8,6 +8,9 @@ import edu.utn.trackademia.dao.UserDAO;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,7 +43,6 @@ public class LoginController implements Initializable {
     @FXML
     private MFXPasswordField password;
 
-    
     //Events initialization
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,29 +53,53 @@ public class LoginController implements Initializable {
         loginButton.setOnAction(event -> menu());
     }
 
-    
-    //Validation of data form
+    //Validation of data form%+\\-]+@[
     private void validate() {
         loginButton.setDisable(!(email.getText().matches("[A-Za-z0-9\\._%+\\-]+@[A-Za-z0-9\\.\\-]+\\.[A-Za-z]{2,}") && password.getText().matches("[\\S]+")));
     }
-    
+
     //If auth correct open menu as main stage
     private void menu() {
         loadingSpinner.setVisible(true);
-        if (dao.authUser(email.getText(), password.getText())) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menu.fxml"));
-                Scene scene = new Scene(loader.load());
-
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.setScene(scene);
-            } catch (IOException e) {
-                e.printStackTrace(); 
-            } finally{
-                loadingSpinner.setVisible(false);
-            }
+        
+        //Check and auth area ->  
+        
+        //Case textFields in blank or empty.
+        if(email.getText().isBlank() || password.getText().isBlank()){
+            loadingSpinner.setVisible(false);
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter your email and password to log in.");
+            alert.showAndWait();
+            return;
         }
-        loadingSpinner.setVisible(false);
+        //Case incorrect email/password
+        if (!dao.authUser(email.getText(), password.getText())) {
+            loadingSpinner.setVisible(false);
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Authentication Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Incorrect Email or Password.");
+            alert.showAndWait();
+            return;
+        }
+        
+        //If Everything is correct! :D 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menu.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            loadingSpinner.setVisible(false);
+        }
+
     }
 
 }

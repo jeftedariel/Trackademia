@@ -15,7 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -49,16 +51,16 @@ public class SplashController implements Initializable {
                         try {
                             root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
                         } catch (IOException e) {
-                            System.out.println("Error: "+ e);
+                            System.out.println("Error: " + e);
                         }
-
                         Scene scene = new Scene(root);
                         Stage stage = new Stage();
+                        stage.centerOnScreen();
                         stage.setTitle("Trackademia");
                         stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
                         stage.setScene(scene);
                         stage.setResizable(false);
-                        
+                        stage.initStyle(StageStyle.DECORATED);
                         stage.show();
                         Stage spStage = (Stage) img.getScene().getWindow();
                         spStage.close();
