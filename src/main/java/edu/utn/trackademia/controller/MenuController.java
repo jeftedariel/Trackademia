@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -35,6 +36,11 @@ public class MenuController implements Initializable {
     @FXML
     private Label username;
 
+    @FXML
+    private TitledPane educational;
+    @FXML
+    private TitledPane administration;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
@@ -42,6 +48,10 @@ public class MenuController implements Initializable {
         });
         
         this.username.setText(UserSession.getInstance().getUserFullName());
+        
+        educational.setCollapsible(false);
+        administration.setCollapsible(false);
+        
     }
 
     public void logout() {
