@@ -25,7 +25,26 @@ public class RoleDAO {
     public RoleDAO() {
         this.adapter = DBAdapterFactory.getAdapter();
     }
-
+    
+    public String getRole(int id_rol){
+        String role_name="";
+        try {
+            String consultSQL = "SELECT nombre_rol from roles WHERE id_rol = ?";
+            Connection connection = this.adapter.getConnection();
+            PreparedStatement ps = connection.prepareStatement(consultSQL);
+            ps.setInt(1, id_rol);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                role_name = resultSet.getString("nombre_rol");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            adapter.disconnect();
+        }
+        return role_name;
+    }
+    
     //Retrieve a list of existing roles
     public Set<Role> getRoles() {
         Set<Role> roles = new HashSet<>();
