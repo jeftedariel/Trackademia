@@ -26,6 +26,8 @@ public class RoleDAO {
         this.adapter = DBAdapterFactory.getAdapter();
     }
     
+    
+    //Return role name by givin it its id.
     public String getRole(int id_rol){
         String role_name="";
         try {
@@ -46,6 +48,7 @@ public class RoleDAO {
     }
     
     //Retrieve a list of existing roles
+    //Can be used to obtain role`s permissions using .stream().anyMatch(n->n.name().equals("Pemission Name"))
     public Set<Role> getRoles() {
         Set<Role> roles = new HashSet<>();
         try {
@@ -66,6 +69,8 @@ public class RoleDAO {
         return roles;
     }
     
+    
+    //A simple Return of a set of permissions
     public Set<Permission> getPermissions(int id_rol){
         Set<Permission> permissions = new HashSet<>();
         try {
