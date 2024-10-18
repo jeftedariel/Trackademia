@@ -56,8 +56,8 @@ public class MenuController implements Initializable {
         educational.setCollapsible(false);
         administration.setCollapsible(false);
         
+        //Sets visible both panels (Administration & Educational) if permissions 'Show Educational' or 'Show Administration' are present
         educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Educational")));
-        
         administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Administration")));
         
     }

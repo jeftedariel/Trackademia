@@ -11,8 +11,4 @@ import java.util.Set;
  * @author jefte
  */
 public record Role(String name, Set<Permission> permissions) {
-    //Retrieve 
-    public boolean hasPermission(String permission){
-        return this.permissions.stream().anyMatch(n->n.name().equals(name));
-    }
 }
