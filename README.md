@@ -8,7 +8,7 @@ A simple & OpenSource academic management system designed to streamline course o
 ## Technologies used 🔑
 - [Java](https://adoptium.net/) (21.0.3 or latest)
 - [JavaFX](https://openjfx.io/) 23
-- [MaterialFX](https://github.com/palexdev/MaterialFX) 2.0.2
+- [MaterialFX](https://github.com/palexdev/MaterialFX) 11.17.0
 - SQL (Support for Mariadb, Mysql & Postgre)
 
 ## How to Contribute 🛠️
