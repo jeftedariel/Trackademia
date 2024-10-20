@@ -4,6 +4,6 @@ database:
   host: localhost
   port: 3306
   username: root
-  password: 1234
+  password: alexuranium232
   # MariaDBAdapter, MySQLAdapter  <-  DBs available
-  type: MariaDBAdapter
+  type: MySQLAdapter

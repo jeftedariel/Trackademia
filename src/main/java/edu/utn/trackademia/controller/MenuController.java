@@ -6,6 +6,7 @@ package edu.utn.trackademia.controller;
 
 import edu.utn.trackademia.dao.RoleDAO;
 import edu.utn.trackademia.entities.UserSession;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,14 +43,20 @@ public class MenuController implements Initializable {
 
     @FXML
     private TitledPane educational;
+    
     @FXML
     private TitledPane administration;
+    
+    @FXML
+    private MFXButton abrirMatricula;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
             logout();
         });
+        
+        abrirMatricula.setOnAction(event -> openAcademicOffer());
         
         this.username.setText(UserSession.getInstance().getUserFullName());
         
@@ -60,6 +67,28 @@ public class MenuController implements Initializable {
         educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Educational")));
         administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Administration")));
         
+    }
+    
+    private void openAcademicOffer() {
+        try {
+            // Load the AcademicOffer.fxml file
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
+            
+            // Create a new Stage for the Academic Offer window
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Academic Offer");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png"))); // Optional: Set the window icon
+            stage.initStyle(StageStyle.DECORATED); // Use a decorated window style
+            stage.show();
+
+            // Optionally close the current window if desired
+            Stage currentStage = (Stage) abrirMatricula.getScene().getWindow();
+            currentStage.close(); // Uncomment this line if you want to close the current window
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle exception if loading fails
+        }
     }
 
     public void logout() {
