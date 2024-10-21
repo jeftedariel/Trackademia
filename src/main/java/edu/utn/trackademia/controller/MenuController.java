@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -47,8 +48,8 @@ public class MenuController implements Initializable {
     @FXML
     private TitledPane administration;
     
-    @FXML
-    private MFXButton abrirMatricula;
+    @FXML 
+    private Pane enrollCourse;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,7 +57,9 @@ public class MenuController implements Initializable {
             logout();
         });
         
-        abrirMatricula.setOnAction(event -> openAcademicOffer());
+        enrollCourse.setOnMouseClicked(event -> openAcademicOffer());
+        
+        
         
         this.username.setText(UserSession.getInstance().getUserFullName());
         
@@ -66,6 +69,7 @@ public class MenuController implements Initializable {
         //Sets visible both panels (Administration & Educational) if permissions 'Show Educational' or 'Show Administration' are present
         educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Educational")));
         administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Administration")));
+        
         
     }
     
@@ -84,7 +88,7 @@ public class MenuController implements Initializable {
             stage.show();
 
             // Optionally close the current window if desired
-            Stage currentStage = (Stage) abrirMatricula.getScene().getWindow();
+            Stage currentStage = (Stage) logout.getScene().getWindow();
             currentStage.close(); // Uncomment this line if you want to close the current window
         } catch (IOException e) {
             e.printStackTrace(); // Handle exception if loading fails
