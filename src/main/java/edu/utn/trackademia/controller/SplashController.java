@@ -60,6 +60,7 @@ public class SplashController implements Initializable {
                         stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
                         stage.setScene(scene);
                         stage.setResizable(false);
+                        stage.centerOnScreen();
                         stage.initStyle(StageStyle.DECORATED);
                         stage.show();
                         Stage spStage = (Stage) img.getScene().getWindow();

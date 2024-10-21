@@ -33,59 +33,59 @@ public class MenuController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    RoleDAO rdao = new RoleDAO(); 
-    
-    
+    RoleDAO rdao = new RoleDAO();
+
     @FXML
     private ImageView logout;
-    
+
     @FXML
     private Label username;
 
     @FXML
     private TitledPane educational;
-    
+
     @FXML
     private TitledPane administration;
-    
+
     @FXML
     private Pane userManagement;
-    
-    @FXML 
+
+    @FXML
     private Pane enrollCourse;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
             logout();
         });
-        
+
         enrollCourse.setOnMouseClicked(event -> openAcademicOffer());
-        
-        
-        
+
         this.username.setText(UserSession.getInstance().getUserFullName());
-        
+
         userManagement.setOnMouseClicked(event -> {
             userManagement();
-        }); 
-        
+        });
+
         educational.setCollapsible(false);
         administration.setCollapsible(false);
-        
+
         //Sets visible both panels (Administration & Educational) if permissions 'Show Educational' or 'Show Administration' are present
-        educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Educational")));
-        administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Administration")));
-        
-        
+        educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational")));
+        if(!rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational"))){
+            administration.setLayoutY(74);
+        }
+        administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Administration")));
     }
-    
+
     private void logout() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            stage.setTitle("Trackademia");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
             stage.show();
 
             Stage currentStage = (Stage) logout.getScene().getWindow();
@@ -95,7 +95,6 @@ public class MenuController implements Initializable {
         }
     }
 
-    
     public void openAcademicOffer() {
         Parent root = null;
         try {
@@ -119,7 +118,5 @@ public class MenuController implements Initializable {
         Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
     }
-    
-    
-}
 
+}
