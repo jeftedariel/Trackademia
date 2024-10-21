@@ -70,6 +70,7 @@ public class MenuController implements Initializable {
         
     }
 
+    
     public void logout() {
         Parent root = null;
         try {
