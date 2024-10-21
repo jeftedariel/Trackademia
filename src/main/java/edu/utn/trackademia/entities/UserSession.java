@@ -13,6 +13,7 @@ public class UserSession {
     public static UserSession instance;
     String name, surname, email;
     int role;
+    int idUsuario;
 
     private UserSession() {
     }
@@ -24,11 +25,12 @@ public class UserSession {
         return instance;
     }
 
-    public void login(String name, String surname, String email, int role){
-        this.name=name;
-        this.surname=surname;
-        this.email=email;
-        this.role=role;
+    public void login(int idUsuario, String name, String surname, String email, int role) {
+     this.idUsuario = idUsuario;
+     this.name = name;
+     this.surname = surname;
+     this.email = email;
+     this.role = role;
     }
     
     public void logout(){
@@ -38,7 +40,14 @@ public class UserSession {
         this.role=0;
     }
     
-    
+    public int getIdUsuario() {
+        return idUsuario; 
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+      
     public String getName() {
         return name;
     }

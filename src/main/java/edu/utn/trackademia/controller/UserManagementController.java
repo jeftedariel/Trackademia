@@ -16,13 +16,17 @@ import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -54,6 +58,19 @@ public class UserManagementController implements Initializable {
 
         setupTable();
         table.autosizeColumnsOnInitialization();
+
+        //table.getSelectionModel().setAllowsMultipleSelection(true);
+        ObservableMap selectedCells = table.getSelectionModel().getSelection();
+
+        selectedCells.addListener(new MapChangeListener() {
+            @Override
+            public void onChanged(Change c) {
+                TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+                Object val = tablePosition.getTableColumn().getCellData(tablePosition.getRow());
+                System.out.println("Selected Value" + val);
+            }
+        });
+
     }
 
     private void setupTable() {
