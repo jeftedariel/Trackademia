@@ -51,7 +51,7 @@ public class UserManagementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
-            logout();
+            menu();
         });
 
         this.username.setText(UserSession.getInstance().getUserFullName());
@@ -94,24 +94,16 @@ public class UserManagementController implements Initializable {
         table.setItems(users);
     }
 
-    public void logout() {
+    public void menu() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.centerOnScreen();
-        stage.setTitle("Trackademia");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
+        Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.DECORATED);
-        stage.show();
-        Stage spStage = (Stage) logout.getScene().getWindow();
-        spStage.close();
     }
 
 }

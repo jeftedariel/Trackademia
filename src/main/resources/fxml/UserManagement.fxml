@@ -14,7 +14,7 @@
          <children>
             <ImageView fx:id="logout" fitHeight="30.0" fitWidth="30.0" layoutX="1224.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/logout.png" />
+                  <Image url="@../assets/back.png" />
                </image>
             </ImageView>
             <ImageView fx:id="user" fitHeight="30.0" fitWidth="44.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

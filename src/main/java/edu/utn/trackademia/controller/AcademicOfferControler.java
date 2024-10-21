@@ -58,7 +58,7 @@ public class AcademicOfferControler implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
-           logout();
+           menu();
     });
 
     matriculaService = new MatriculaService();    
@@ -95,7 +95,7 @@ public class AcademicOfferControler implements Initializable {
         int idUsuario = UserSession.getInstance().getIdUsuario(); 
         matriculaService.matricularEstudiante(idUsuario, seleccionados);
         mostrarAlerta("Éxito", "Te has matriculado correctamente en los grupos seleccionados.");
-        logout();
+        menu();
     } catch (SQLException e) {
         e.printStackTrace();
         mostrarAlerta("Error", "No se pudo completar la matrícula. Intenta nuevamente.");
@@ -148,24 +148,16 @@ public class AcademicOfferControler implements Initializable {
       table.setItems(grupos);
     }
 
-    public void logout() {
+    public void menu() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.centerOnScreen();
-        stage.setTitle("Trackademia");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
+        Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.DECORATED);
-        stage.show();
-        Stage spStage = (Stage) logout.getScene().getWindow();
-        spStage.close();
     }
 
 }

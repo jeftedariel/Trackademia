@@ -80,47 +80,32 @@ public class MenuController implements Initializable {
         
     }
     
-    private void openAcademicOffer() {
+    private void logout() {
         try {
-            // Load the AcademicOffer.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
-            
-            // Create a new Stage for the Academic Offer window
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Academic Offer");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png"))); // Optional: Set the window icon
-            stage.initStyle(StageStyle.DECORATED); // Use a decorated window style
             stage.show();
 
-            // Optionally close the current window if desired
             Stage currentStage = (Stage) logout.getScene().getWindow();
-            currentStage.close(); // Uncomment this line if you want to close the current window
+            currentStage.close();
         } catch (IOException e) {
-            e.printStackTrace(); // Handle exception if loading fails
+            e.printStackTrace();
         }
     }
 
     
-    public void logout() {
+    public void openAcademicOffer() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.centerOnScreen();
-        stage.setTitle("Trackademia");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
+        Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.DECORATED);
-        stage.show();
-        Stage spStage = (Stage) logout.getScene().getWindow();
-        spStage.close();
     }
 
     public void userManagement() {

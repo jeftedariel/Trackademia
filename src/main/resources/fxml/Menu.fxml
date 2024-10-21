@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.mfxcore.controls.Label?>
-<<<<<<< HEAD
-=======
 <?import io.github.palexdev.mfxcore.controls.Text?>
->>>>>>> 66afe83399966347d6b16006f7ae21d7d75cf860
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
