@@ -49,6 +49,11 @@
             <version>11.17.0</version>
             <classifier>all</classifier>
         </dependency>
+     <dependency>
+          <groupId>com.jfoenix</groupId>
+        <artifactId>jfoenix</artifactId>
+       <version>9.0.10</version>
+     </dependency>
 
     </dependencies>
 
