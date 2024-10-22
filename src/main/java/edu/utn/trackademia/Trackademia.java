@@ -22,7 +22,7 @@ public class Trackademia extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        SplashController.gui(stage);
+        SplashController.initGui(stage);
     }
 
     public static void main(String[] args) {

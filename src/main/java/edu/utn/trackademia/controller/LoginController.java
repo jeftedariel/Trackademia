@@ -70,22 +70,13 @@ public class LoginController implements Initializable {
         //Check and auth area ->  
         //Case textFields in blank or empty.
         if (email.getText().isBlank() || password.getText().isBlank()) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText(null);
-            alert.setContentText("Please enter your email and password to log in.");
-            alert.showAndWait();
+            Alerts.show(AlertType.WARNING, "Warning", "Please enter your email and password to log in.");
             loadingSpinner.setVisible(false);
             return;
         }
         //Case incorrect email/password
         if (!dao.authUser(email.getText(), password.getText())) {
-
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Authentication Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Incorrect Email or Password.");
-            alert.showAndWait();
+            Alerts.show(AlertType.ERROR, "Authentication Error", "Incorrect Email or Password");
             loadingSpinner.setVisible(false);
             return;
         }
@@ -105,7 +96,7 @@ public class LoginController implements Initializable {
         loadingSpinner.setVisible(false);
     }
 
-    public static void gui(ImageView img) {
+    public static void initGui(ImageView img) {
         Parent root =null;
         try {
             root = FXMLLoader.load(Trackademia.class.getResource("/fxml/Login.fxml"));

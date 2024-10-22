@@ -48,7 +48,7 @@ public class SplashController implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        LoginController.gui(img);
+                        LoginController.initGui(img);
                     }
 
                 });
@@ -59,7 +59,7 @@ public class SplashController implements Initializable {
         }
     }
 
-    public static void gui(Stage stage) {
+    public static void initGui(Stage stage) {
         try {
             Parent root = FXMLLoader.load(Trackademia.class.getResource("/fxml/Splash.fxml"));
 
