@@ -4,10 +4,10 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.AcademicOfferDAO;
 import edu.utn.trackademia.dao.RoleDAO;
 import edu.utn.trackademia.entities.UserSession;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,13 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -74,7 +74,7 @@ public class MenuController implements Initializable {
 
         //Sets visible both panels (Administration & Educational) if permissions 'Show Educational' or 'Show Administration' are present
         educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational")));
-        if(!rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational"))){
+        if (!rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational"))) {
             administration.setLayoutY(74);
         }
         administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Administration")));
@@ -100,7 +100,7 @@ public class MenuController implements Initializable {
     public void openAcademicOffer() {
         Parent root = null;
         AcademicOfferDAO gdao = new AcademicOfferDAO();
-        if(!gdao.hasAvailableGroups(UserSession.getInstance().getIdUsuario())){
+        if (!gdao.hasAvailableGroups(UserSession.getInstance().getIdUsuario())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("");
             alert.setHeaderText(null);
@@ -108,7 +108,7 @@ public class MenuController implements Initializable {
             alert.showAndWait();
             return;
         }
-        
+
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
         } catch (IOException e) {
@@ -117,7 +117,7 @@ public class MenuController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
-        
+
     }
 
     public void userManagement() {
@@ -130,6 +130,20 @@ public class MenuController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    public static void initGui(ImageView img) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Trackademia.class.getResource("/fxml/Menu.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = (Stage) img.getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

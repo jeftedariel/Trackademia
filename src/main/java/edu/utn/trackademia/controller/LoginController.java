@@ -9,7 +9,6 @@ import edu.utn.trackademia.dao.UserDAO;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
@@ -47,6 +46,9 @@ public class LoginController implements Initializable {
     private MFXTextField email;
     @FXML
     private MFXPasswordField password;
+    
+    @FXML
+    private ImageView icon;
 
     //Events initialization
     @FXML
@@ -82,17 +84,7 @@ public class LoginController implements Initializable {
         }
 
         //If Everything is correct! :D 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menu.fxml"));
-            Scene scene = new Scene(loader.load());
-
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-
-            stage.setScene(scene);
-            stage.centerOnScreen();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        MenuController.initGui(icon);
         loadingSpinner.setVisible(false);
     }
 
