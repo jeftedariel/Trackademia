@@ -17,10 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -92,7 +90,7 @@ public class MenuController implements Initializable {
     }
 
     public void userManagement() {
-        UserManagementController.initGui(logout);
+        StudentManagementController.initGui(logout);
         
     }
 

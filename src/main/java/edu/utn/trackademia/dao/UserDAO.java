@@ -13,14 +13,12 @@ import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author jefte
  */
-
 public class UserDAO {
 
     private IDBAdapter adapter;
@@ -28,49 +26,71 @@ public class UserDAO {
     public UserDAO() {
         this.adapter = DBAdapterFactory.getAdapter();
     }
-    
-    
+
     //Validates that users exists and has that password.
     public boolean authUser(String email, String password) {
-    for (User n : getUsers()) {
-        if (n.email().equals(email) && n.password().equals(password)) {
-            // Assuming you have a method to retrieve user ID (n.idUsuario())
-            UserSession.getInstance().login(n.idUsuario(), n.name(), n.surname(), n.email(), n.role());
-            return true;
+        for (User n : getUsers()) {
+            if (n.email().equals(email) && n.password().equals(password)) {
+                // Assuming you have a method to retrieve user ID (n.idUsuario())
+                UserSession.getInstance().login(n.idUsuario(), n.name(), n.surname(), n.email(), n.role());
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
+    
+    
+    public List<String> getStudentsEmail(){
+        List<String> emails = new ArrayList<>();
+        getUsers().stream().forEach(n->{
+            if(n.role()==3){
+                emails.add(n.email());
+            }
+        });
+        return emails;
+    }
+    
+    public List<User> getStudents(){
+        List<User> students = new ArrayList<>();
+        
+        getUsers().stream().forEach(n->{
+            if(n.role()==3){
+                students.add(n);
+            }
+        });
+                
+        return students;
+    }
 
     //Getting a list of users (?) obvious
     public List<User> getUsers() {
-    List<User> users = new ArrayList<>();
-    try {
-        // Update the SQL query to select the user ID (assumed to be `id_usuario`)
-        String consultSQL = "SELECT u.id_usuario, u.correo, u.contraseña, u.rol, p.Nombre, p.Apellidos, p.Telefono, p.fecha_nacimiento " +
-                            "FROM usuarios u LEFT JOIN personas p ON u.persona = p.id_persona;";
-        Connection connection = this.adapter.getConnection();
-        PreparedStatement ps = connection.prepareStatement(consultSQL);
-        ResultSet resultSet = ps.executeQuery();
-        
-        while (resultSet.next()) {
-            // Retrieve the id_usuario
-            int idUsuario = resultSet.getInt("id_usuario");
-            String email = resultSet.getString("correo");
-            String password = resultSet.getString("contraseña");
-            int role = resultSet.getInt("rol");
-            String name = resultSet.getString("Nombre");
-            String surname = resultSet.getString("Apellidos");
-            
-            // Create a User instance with the idUsuario
-            users.add(new User(idUsuario, email, password, role, name, surname));
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        adapter.disconnect();
-    }
+        List<User> users = new ArrayList<>();
+        try {
+            // Update the SQL query to select the user ID (assumed to be `id_usuario`)
+            String consultSQL = "SELECT u.id_usuario, u.correo, u.contraseña, u.rol, p.Nombre, p.Apellidos, p.Telefono, p.fecha_nacimiento "
+                    + "FROM usuarios u LEFT JOIN personas p ON u.persona = p.id_persona;";
+            Connection connection = this.adapter.getConnection();
+            PreparedStatement ps = connection.prepareStatement(consultSQL);
+            ResultSet resultSet = ps.executeQuery();
 
-       return users;
+            while (resultSet.next()) {
+                // Retrieve the id_usuario
+                int idUsuario = resultSet.getInt("id_usuario");
+                String email = resultSet.getString("correo");
+                String password = resultSet.getString("contraseña");
+                int role = resultSet.getInt("rol");
+                String name = resultSet.getString("Nombre");
+                String surname = resultSet.getString("Apellidos");
+
+                // Create a User instance with the idUsuario
+                users.add(new User(idUsuario, email, password, role, name, surname));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            adapter.disconnect();
+        }
+
+        return users;
     }
 }
