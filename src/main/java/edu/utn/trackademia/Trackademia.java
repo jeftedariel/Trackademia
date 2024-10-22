@@ -3,6 +3,7 @@
  */
 package edu.utn.trackademia;
 
+import edu.utn.trackademia.controller.SplashController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,19 +22,7 @@ public class Trackademia extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Splash.fxml"));
-        root.setStyle("-fx-background-color: transparent");
-
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setTitle("Trackademia");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
-
+        SplashController.gui(stage);
     }
 
     public static void main(String[] args) {

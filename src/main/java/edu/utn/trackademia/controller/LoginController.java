@@ -4,6 +4,7 @@ package edu.utn.trackademia.controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
+import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.UserDAO;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
@@ -17,9 +18,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -61,11 +66,10 @@ public class LoginController implements Initializable {
     //If auth correct open menu as main stage
     private void menu() {
         loadingSpinner.setVisible(true);
-        
+
         //Check and auth area ->  
-        
         //Case textFields in blank or empty.
-        if(email.getText().isBlank() || password.getText().isBlank()){
+        if (email.getText().isBlank() || password.getText().isBlank()) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText(null);
@@ -76,7 +80,7 @@ public class LoginController implements Initializable {
         }
         //Case incorrect email/password
         if (!dao.authUser(email.getText(), password.getText())) {
-            
+
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Authentication Error");
             alert.setHeaderText(null);
@@ -85,7 +89,7 @@ public class LoginController implements Initializable {
             loadingSpinner.setVisible(false);
             return;
         }
-        
+
         //If Everything is correct! :D 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menu.fxml"));
@@ -101,4 +105,24 @@ public class LoginController implements Initializable {
         loadingSpinner.setVisible(false);
     }
 
+    public static void gui(ImageView img) {
+        Parent root =null;
+        try {
+            root = FXMLLoader.load(Trackademia.class.getResource("/fxml/Login.fxml"));
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.centerOnScreen();
+        stage.setTitle("Trackademia");
+        stage.getIcons().add(new Image(Trackademia.class.getResourceAsStream("/assets/icon.png")));
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.centerOnScreen();
+        stage.initStyle(StageStyle.DECORATED);
+        stage.show();
+        Stage spStage = (Stage) img.getScene().getWindow();
+        spStage.close();
+    }
 }

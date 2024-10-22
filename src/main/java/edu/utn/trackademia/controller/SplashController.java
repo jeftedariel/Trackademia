@@ -4,6 +4,7 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.Trackademia;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,24 +48,7 @@ public class SplashController implements Initializable {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        Parent root = null;
-                        try {
-                            root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-                        } catch (IOException e) {
-                            System.out.println("Error: " + e);
-                        }
-                        Scene scene = new Scene(root);
-                        Stage stage = new Stage();
-                        stage.centerOnScreen();
-                        stage.setTitle("Trackademia");
-                        stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
-                        stage.setScene(scene);
-                        stage.setResizable(false);
-                        stage.centerOnScreen();
-                        stage.initStyle(StageStyle.DECORATED);
-                        stage.show();
-                        Stage spStage = (Stage) img.getScene().getWindow();
-                        spStage.close();
+                        LoginController.gui(img);
                     }
 
                 });
@@ -72,6 +56,23 @@ public class SplashController implements Initializable {
             } catch (InterruptedException e) {
 
             }
+        }
+    }
+
+    public static void gui(Stage stage) {
+        try {
+            Parent root = FXMLLoader.load(Trackademia.class.getResource("/fxml/Splash.fxml"));
+
+            root.setStyle("-fx-background-color: transparent");
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setTitle("Trackademia");
+            stage.getIcons().add(new Image(Trackademia.class.getResourceAsStream("/assets/icon.png")));
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+        } catch(IOException e){
         }
     }
 
