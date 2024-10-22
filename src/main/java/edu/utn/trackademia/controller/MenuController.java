@@ -58,7 +58,7 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
-            logout();
+            LoginController.initGui(logout);
         });
 
         enrollCourse.setOnMouseClicked(event -> openAcademicOffer());
@@ -80,56 +80,20 @@ public class MenuController implements Initializable {
         administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Administration")));
     }
 
-    private void logout() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Trackademia");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
-            stage.show();
-
-            Stage currentStage = (Stage) logout.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void openAcademicOffer() {
         Parent root = null;
         AcademicOfferDAO gdao = new AcademicOfferDAO();
         if (!gdao.hasAvailableGroups(UserSession.getInstance().getIdUsuario())) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("");
-            alert.setHeaderText(null);
-            alert.setContentText("There's no available enrollments.");
-            alert.showAndWait();
+            Alerts.show(Alert.AlertType.INFORMATION, "Info", "There's no available enrollments");
             return;
         }
-
-        try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logout.getScene().getWindow();
-        stage.setScene(scene);
+        AcademicOfferController.initGui(logout);
 
     }
 
     public void userManagement() {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/UserManagement.fxml"));
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logout.getScene().getWindow();
-        stage.setScene(scene);
+        UserManagementController.initGui(logout);
+        
     }
 
     public static void initGui(ImageView img) {

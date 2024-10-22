@@ -4,6 +4,7 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.UserDAO;
 import edu.utn.trackademia.entities.User;
 import edu.utn.trackademia.entities.UserSession;
@@ -26,11 +27,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TablePosition;
-import javafx.scene.control.TextFormatter.Change;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -51,7 +49,7 @@ public class UserManagementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
-            menu();
+            MenuController.initGui(logout);
         });
 
         this.username.setText(UserSession.getInstance().getUserFullName());
@@ -93,16 +91,18 @@ public class UserManagementController implements Initializable {
 
         table.setItems(users);
     }
-
-    public void menu() {
+    
+    
+    public static void initGui(ImageView img){
+    
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
+            root = FXMLLoader.load(Trackademia.class.getResource("/fxml/UserManagement.fxml"));
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
         Scene scene = new Scene(root);
-        Stage stage = (Stage) logout.getScene().getWindow();
+        Stage stage = (Stage) img.getScene().getWindow();
         stage.setScene(scene);
     }
 
