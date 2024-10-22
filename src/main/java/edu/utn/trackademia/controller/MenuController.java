@@ -4,6 +4,7 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.dao.AcademicOfferDAO;
 import edu.utn.trackademia.dao.RoleDAO;
 import edu.utn.trackademia.entities.UserSession;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
@@ -33,86 +35,101 @@ public class MenuController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    RoleDAO rdao = new RoleDAO(); 
-    
-    
+    RoleDAO rdao = new RoleDAO();
+
     @FXML
     private ImageView logout;
-    
+
     @FXML
     private Label username;
 
     @FXML
     private TitledPane educational;
-    
+
     @FXML
     private TitledPane administration;
-    
-    @FXML 
+
+    @FXML
+    private Pane userManagement;
+
+    @FXML
     private Pane enrollCourse;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
             logout();
         });
-        
+
         enrollCourse.setOnMouseClicked(event -> openAcademicOffer());
-        
-        
-        
+
         this.username.setText(UserSession.getInstance().getUserFullName());
-        
+
+        userManagement.setOnMouseClicked(event -> {
+            userManagement();
+        });
+
         educational.setCollapsible(false);
         administration.setCollapsible(false);
-        
+
         //Sets visible both panels (Administration & Educational) if permissions 'Show Educational' or 'Show Administration' are present
-        educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Educational")));
-        administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n->n.name().equals("Show Administration")));
-        
-        
+        educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational")));
+        if(!rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational"))){
+            administration.setLayoutY(74);
+        }
+        administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Administration")));
     }
-    
-    private void openAcademicOffer() {
+
+    private void logout() {
         try {
-            // Load the AcademicOffer.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
-            
-            // Create a new Stage for the Academic Offer window
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("Academic Offer");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png"))); // Optional: Set the window icon
-            stage.initStyle(StageStyle.DECORATED); // Use a decorated window style
+            stage.setTitle("Trackademia");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
             stage.show();
 
-            // Optionally close the current window if desired
             Stage currentStage = (Stage) logout.getScene().getWindow();
-            currentStage.close(); // Uncomment this line if you want to close the current window
+            currentStage.close();
         } catch (IOException e) {
-            e.printStackTrace(); // Handle exception if loading fails
+            e.printStackTrace();
         }
     }
 
-    public void logout() {
+    public void openAcademicOffer() {
         Parent root = null;
+        AcademicOfferDAO gdao = new AcademicOfferDAO();
+        if(!gdao.hasAvailableGroups(UserSession.getInstance().getIdUsuario())){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("");
+            alert.setHeaderText(null);
+            alert.setContentText("There's no available enrollments.");
+            alert.showAndWait();
+            return;
+        }
+        
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.centerOnScreen();
-        stage.setTitle("Trackademia");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
+        Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.DECORATED);
-        stage.show();
-        Stage spStage = (Stage) logout.getScene().getWindow();
-        spStage.close();
+        
     }
-}
 
+    public void userManagement() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/UserManagement.fxml"));
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) logout.getScene().getWindow();
+        stage.setScene(scene);
+    }
+
+}

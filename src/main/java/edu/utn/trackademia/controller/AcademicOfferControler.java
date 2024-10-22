@@ -38,9 +38,9 @@ import javafx.scene.control.SelectionMode;
  * @author jefte
  */
 public class AcademicOfferControler implements Initializable {
-    
+
     int idUsuario;
-    
+
     private MatriculaService matriculaService;
 
     @FXML
@@ -48,7 +48,7 @@ public class AcademicOfferControler implements Initializable {
 
     @FXML
     private Label username;
-    
+
     @FXML
     private MFXButton matricular;
 
@@ -58,48 +58,48 @@ public class AcademicOfferControler implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
-           logout();
-    });
+            menu();
+        });
 
-    matriculaService = new MatriculaService();    
-        
-    this.username.setText(UserSession.getInstance().getUserFullName());
-    this.idUsuario = UserSession.getInstance().getIdUsuario();
+        matriculaService = new MatriculaService();
 
-    setupTable(idUsuario);
-    
-    matricular.setOnAction(event -> realizarMatricula());
-    
-    table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        this.username.setText(UserSession.getInstance().getUserFullName());
+        this.idUsuario = UserSession.getInstance().getIdUsuario();
+
+        setupTable(idUsuario);
+
+        matricular.setOnAction(event -> realizarMatricula());
+
+        table.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
     }
 
     private void realizarMatricula() {
-    ObservableList<Integer> selectedIndices = table.getSelectionModel().getSelectedIndices();
-  
-    if (selectedIndices.isEmpty()) {
-        mostrarAlerta("Advertencia", "Por favor, selecciona al menos un grupo para matricularte.");
-        return;
-    }
+        ObservableList<Integer> selectedIndices = table.getSelectionModel().getSelectedIndices();
 
-    ObservableList<Grupo> seleccionados = FXCollections.observableArrayList();
-
-    for (Integer index : selectedIndices) {
-        if (index >= 0 && index < table.getItems().size()) {
-            Grupo grupo = table.getItems().get(index);
-            seleccionados.add(grupo);
+        if (selectedIndices.isEmpty()) {
+            mostrarAlerta("Warning", "Please, select at least one group.");
+            return;
         }
-    }
 
-    // Time to matriculate
-    try {
-        int idUsuario = UserSession.getInstance().getIdUsuario(); 
-        matriculaService.matricularEstudiante(idUsuario, seleccionados);
-        mostrarAlerta("Éxito", "Te has matriculado correctamente en los grupos seleccionados.");
-        logout();
-    } catch (SQLException e) {
-        e.printStackTrace();
-        mostrarAlerta("Error", "No se pudo completar la matrícula. Intenta nuevamente.");
-      }
+        ObservableList<Grupo> seleccionados = FXCollections.observableArrayList();
+
+        for (Integer index : selectedIndices) {
+            if (index >= 0 && index < table.getItems().size()) {
+                Grupo grupo = table.getItems().get(index);
+                seleccionados.add(grupo);
+            }
+        }
+
+        // Time to matriculate
+        try {
+            int idUsuario = UserSession.getInstance().getIdUsuario();
+            matriculaService.matricularEstudiante(idUsuario, seleccionados);
+            mostrarAlerta("Succes", "You`ve been enrolled succesfully!");
+            menu();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "There was an error while enrolling a course, please try again.");
+        }
     }
 
     private void mostrarAlerta(String title, String message) {
@@ -109,63 +109,57 @@ public class AcademicOfferControler implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
+
     private void setupTable(int idUsuario) {
-    table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);    
-        
-    TableColumn<Grupo, String> numeroGrupoColumn = new TableColumn<>("Número Grupo");
-    numeroGrupoColumn.setCellValueFactory(new PropertyValueFactory<>("numeroGrupo"));
-    numeroGrupoColumn.setComparator(Comparator.comparing(String::valueOf));
+        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-    TableColumn<Grupo, String> numeroAulaColumn = new TableColumn<>("Número Aula");
-    numeroAulaColumn.setCellValueFactory(new PropertyValueFactory<>("numeroAula"));
-    numeroAulaColumn.setComparator(Comparator.comparing(String::valueOf));
+        TableColumn<Grupo, String> numeroGrupoColumn = new TableColumn<>("Group Number");
+        numeroGrupoColumn.setCellValueFactory(new PropertyValueFactory<>("numeroGrupo"));
+        numeroGrupoColumn.setComparator(Comparator.comparing(String::valueOf));
 
-    TableColumn<Grupo, String> horarioColumn = new TableColumn<>("Horario");
-    horarioColumn.setCellValueFactory(new PropertyValueFactory<>("horario"));
-    horarioColumn.setComparator(Comparator.comparing(String::valueOf));
+        TableColumn<Grupo, String> numeroAulaColumn = new TableColumn<>("Room number");
+        numeroAulaColumn.setCellValueFactory(new PropertyValueFactory<>("numeroAula"));
+        numeroAulaColumn.setComparator(Comparator.comparing(String::valueOf));
 
-    TableColumn<Grupo, Integer> capacidadMaximaColumn = new TableColumn<>("Capacidad Máxima");
-    capacidadMaximaColumn.setCellValueFactory(new PropertyValueFactory<>("capacidadMaxima"));
-    capacidadMaximaColumn.setComparator(Comparator.comparing(Integer::valueOf));
+        TableColumn<Grupo, String> horarioColumn = new TableColumn<>("Schedule");
+        horarioColumn.setCellValueFactory(new PropertyValueFactory<>("horario"));
+        horarioColumn.setComparator(Comparator.comparing(String::valueOf));
 
-    TableColumn<Grupo, String> nombreCursoColumn = new TableColumn<>("Curso");
-    nombreCursoColumn.setCellValueFactory(new PropertyValueFactory<>("curso"));
-    nombreCursoColumn.setComparator(Comparator.comparing(String::valueOf));
+        TableColumn<Grupo, Integer> capacidadMaximaColumn = new TableColumn<>("Max Capacity");
+        capacidadMaximaColumn.setCellValueFactory(new PropertyValueFactory<>("capacidadMaxima"));
+        capacidadMaximaColumn.setComparator(Comparator.comparing(Integer::valueOf));
 
-    TableColumn<Grupo, Integer> creditosColumn = new TableColumn<>("Créditos");
-    creditosColumn.setCellValueFactory(new PropertyValueFactory<>("creditos"));
-    creditosColumn.setComparator(Comparator.comparing(Integer::valueOf));
+        TableColumn<Grupo, String> nombreCursoColumn = new TableColumn<>("Course");
+        nombreCursoColumn.setCellValueFactory(new PropertyValueFactory<>("curso"));
+        nombreCursoColumn.setComparator(Comparator.comparing(String::valueOf));
 
-    TableColumn<Grupo, Integer> horasLectivasColumn = new TableColumn<>("Horas Lectivas");
-    horasLectivasColumn.setCellValueFactory(new PropertyValueFactory<>("horas_lectivas"));
-    horasLectivasColumn.setComparator(Comparator.comparing(Integer::valueOf));
+        TableColumn<Grupo, Integer> creditosColumn = new TableColumn<>("Credits");
+        creditosColumn.setCellValueFactory(new PropertyValueFactory<>("creditos"));
+        creditosColumn.setComparator(Comparator.comparing(Integer::valueOf));
 
-    table.getColumns().addAll(numeroGrupoColumn, numeroAulaColumn, horarioColumn, capacidadMaximaColumn, nombreCursoColumn, creditosColumn, horasLectivasColumn);
+        TableColumn<Grupo, Integer> horasLectivasColumn = new TableColumn<>("Hours");
+        horasLectivasColumn.setCellValueFactory(new PropertyValueFactory<>("horas_lectivas"));
+        horasLectivasColumn.setComparator(Comparator.comparing(Integer::valueOf));
 
-      AcademicOfferDAO gdao = new AcademicOfferDAO();
-      ObservableList<Grupo> grupos = FXCollections.observableArrayList(gdao.getGrupos(idUsuario));
-      table.setItems(grupos);
+        table.getColumns().addAll(numeroGrupoColumn, numeroAulaColumn, horarioColumn, capacidadMaximaColumn, nombreCursoColumn, creditosColumn, horasLectivasColumn);
+
+        AcademicOfferDAO gdao = new AcademicOfferDAO();
+        ObservableList<Grupo> grupos = FXCollections.observableArrayList(gdao.getGrupos(idUsuario));
+        table.setItems(grupos);
+
+        System.out.println(gdao.hasAvailableGroups(idUsuario));
     }
 
-    public void logout() {
+    public void menu() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.centerOnScreen();
-        stage.setTitle("Trackademia");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
+        Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
-        stage.setResizable(false);
-        stage.initStyle(StageStyle.DECORATED);
-        stage.show();
-        Stage spStage = (Stage) logout.getScene().getWindow();
-        spStage.close();
     }
 
 }

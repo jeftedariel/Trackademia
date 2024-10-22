@@ -56,7 +56,29 @@
       </TitledPane>    
       <TitledPane fx:id="administration" animated="false" layoutX="30.0" layoutY="400.0" prefHeight="280.0" prefWidth="1226.0" style="" text="Administration">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b2b3b7;" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #b2b3b7;">
+               <children>
+                  <Pane fx:id="userManagement" layoutX="34.0" layoutY="27.0" prefHeight="200.0" prefWidth="187.0">
+                     <children>
+                        <ImageView fitHeight="129.0" fitWidth="117.0" layoutX="37.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/user-management.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label layoutX="1.0" layoutY="130.0" prefHeight="28.0" prefWidth="189.0" text="User Management" textFill="#5780d4">
+                           <font>
+                              <Font name="Poppins Black" size="19.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+               </children></AnchorPane>
         </content>
       </TitledPane>
    </children>
