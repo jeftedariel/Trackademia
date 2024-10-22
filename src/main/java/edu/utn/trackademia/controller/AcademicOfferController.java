@@ -142,16 +142,16 @@ public class AcademicOfferController implements Initializable {
     }
 
     public static void initGui(ImageView img) {
-        Parent root = null;
 
         try {
-            root = FXMLLoader.load(Trackademia.class.getResource("/fxml/AcademicOffer.fxml"));
+            Parent root = FXMLLoader.load(Trackademia.class.getResource("/fxml/AcademicOffer.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) img.getScene().getWindow();
+            stage.setScene(scene);
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) img.getScene().getWindow();
-        stage.setScene(scene);
+
     }
 
 }
