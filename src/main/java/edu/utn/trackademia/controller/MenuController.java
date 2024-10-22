@@ -4,6 +4,7 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.dao.AcademicOfferDAO;
 import edu.utn.trackademia.dao.RoleDAO;
 import edu.utn.trackademia.entities.UserSession;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
@@ -97,6 +99,16 @@ public class MenuController implements Initializable {
 
     public void openAcademicOffer() {
         Parent root = null;
+        AcademicOfferDAO gdao = new AcademicOfferDAO();
+        if(!gdao.hasAvailableGroups(UserSession.getInstance().getIdUsuario())){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("");
+            alert.setHeaderText(null);
+            alert.setContentText("There's no available enrollments.");
+            alert.showAndWait();
+            return;
+        }
+        
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
         } catch (IOException e) {
@@ -105,6 +117,7 @@ public class MenuController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
+        
     }
 
     public void userManagement() {

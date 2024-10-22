@@ -29,6 +29,6 @@
             </Label>
          </children>
       </Pane>
-      <MFXTableView fx:id="table" layoutX="14.0" layoutY="259.0" prefHeight="447.0" prefWidth="1247.0" />
+      <MFXTableView fx:id="table" layoutX="14.0" layoutY="204.0" prefHeight="502.0" prefWidth="1247.0" />
    </children>
 </AnchorPane>
