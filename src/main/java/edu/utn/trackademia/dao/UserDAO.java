@@ -67,7 +67,7 @@ public class UserDAO {
     public List<Course> getCourses(int id_user){
         List<Course> courses = new ArrayList<>();
         try {
-            String consultSQL = " SELECT c.nombre_curso, g.numero_grupo, g.numero_aula, g.horario"
+            String consultSQL = " SELECT c.nombre_curso, g.numero_grupo, g.numero_aula, g.horario "
                     + "FROM matriculas m INNER JOIN matriculas_grupos mg "
                     + "ON m.id_matricula = mg.id_matricula "
                     + "INNER JOIN grupos g ON mg.id_grupo = g.id_grupo "
@@ -75,6 +75,7 @@ public class UserDAO {
                     + "WHERE m.id_estudiante = ?";
             Connection connection = this.adapter.getConnection();
             PreparedStatement ps = connection.prepareStatement(consultSQL);
+            ps.setInt(1, id_user);
             ResultSet resultSet = ps.executeQuery();
 
             while (resultSet.next()) {
