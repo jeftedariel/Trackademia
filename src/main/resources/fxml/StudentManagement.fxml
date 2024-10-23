@@ -30,7 +30,7 @@
             </Label>
          </children>
       </Pane>
-      <MFXButton fx:id="courses" layoutX="361.0" layoutY="103.0" text="Student Courses">
+      <MFXButton fx:id="courses" layoutX="564.0" layoutY="151.0" text="Student Courses">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>

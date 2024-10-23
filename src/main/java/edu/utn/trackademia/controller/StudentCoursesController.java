@@ -6,6 +6,7 @@ package edu.utn.trackademia.controller;
 
 import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.UserDAO;
+import edu.utn.trackademia.entities.Course;
 import edu.utn.trackademia.entities.User;
 import edu.utn.trackademia.entities.UserSession;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
@@ -45,11 +46,13 @@ public class StudentCoursesController implements Initializable {
 
     @FXML
     private MFXComboBox cbxStudents;
+    
+    private static int student_id;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
-            MenuController.initGui(logout);
+            StudentManagementController.initGui(logout);
         });
 
         this.username.setText(UserSession.getInstance().getUserFullName());
@@ -60,29 +63,35 @@ public class StudentCoursesController implements Initializable {
 
     private void setupTable() {
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-        TableColumn<User, String> name = new TableColumn<>("Name");
-        name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().name()));
-
-        TableColumn<User, String> surname = new TableColumn<>("Surname");
-       
-        surname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().surname()));
         
-        TableColumn<User, String> email = new TableColumn<>("Email");
-        email.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().email()));
+       // String ,int ,int , String schedule
         
-        table.getColumns().addAll(name, surname, email);
+        TableColumn<Course, String> course_name = new TableColumn<>("Course");
+        course_name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().course_name()));
+
+        TableColumn<Course, String> group_number = new TableColumn<>("Group");
+        group_number.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().group_number())));
+
+        TableColumn<Course, String> room_number = new TableColumn<>("Classroom");
+        room_number.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().room_number())));
+        
+        
+        TableColumn<Course, String> schedule = new TableColumn<>("Schedule");
+        schedule.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().schedule()));
+        
+        table.getColumns().addAll(course_name, group_number, room_number,schedule );
 
         UserDAO uDao = new UserDAO();
-        ObservableList<User> users = FXCollections.observableArrayList(uDao.getStudents());
-        table.setItems(users);
+        ObservableList<Course> courses = FXCollections.observableArrayList(uDao.getCourses(StudentCoursesController.student_id));
+        table.setItems(courses);
     }
 
-    public static void initGui(ImageView img) {
-
+    public static void initGui(ImageView img, int student_id) {
+        StudentCoursesController.student_id = student_id;
+        
         Parent root = null;
         try {
-            root = FXMLLoader.load(Trackademia.class.getResource("/fxml/StudentManagement.fxml"));
+            root = FXMLLoader.load(Trackademia.class.getResource("/fxml/StudentCourses.fxml"));
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) img.getScene().getWindow();

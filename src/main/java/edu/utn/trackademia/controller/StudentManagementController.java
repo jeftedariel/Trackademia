@@ -8,6 +8,7 @@ import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.UserDAO;
 import edu.utn.trackademia.entities.User;
 import edu.utn.trackademia.entities.UserSession;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -45,6 +47,9 @@ public class StudentManagementController implements Initializable {
 
     @FXML
     private MFXComboBox cbxStudents;
+    
+    @FXML
+    private MFXButton courses;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,15 +57,25 @@ public class StudentManagementController implements Initializable {
             MenuController.initGui(logout);
         });
 
+        courses.setOnMouseClicked(event -> {
+            
+            selectStudent();
+        });
+        
         this.username.setText(UserSession.getInstance().getUserFullName());
 
         setupTable();
+        
+        
 
     }
 
     private void setupTable() {
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+        TableColumn<User, String> id_usuario = new TableColumn<>("ID");
+        id_usuario.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().idUsuario())));
+        
         TableColumn<User, String> name = new TableColumn<>("Name");
         name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().name()));
 
@@ -71,11 +86,24 @@ public class StudentManagementController implements Initializable {
         TableColumn<User, String> email = new TableColumn<>("Email");
         email.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().email()));
         
-        table.getColumns().addAll(name, surname, email);
+        table.getColumns().addAll(id_usuario,name, surname, email);
 
         UserDAO uDao = new UserDAO();
         ObservableList<User> users = FXCollections.observableArrayList(uDao.getStudents());
         table.setItems(users);
+    }
+    
+    
+    
+    private void selectStudent(){
+         ObservableList<Integer> selectedIndices = table.getSelectionModel().getSelectedIndices();
+
+        if (selectedIndices.isEmpty()) {
+            Alerts.show(Alert.AlertType.WARNING, "Warning", "Please, select a Student.");
+            return;
+        }
+        
+        StudentCoursesController.initGui(logout, selectedIndices.get(0));
     }
 
     public static void initGui(ImageView img) {

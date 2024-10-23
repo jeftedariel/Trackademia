@@ -6,6 +6,7 @@ package edu.utn.trackademia.dao;
 
 import edu.utn.trackademia.database.DBAdapterFactory;
 import edu.utn.trackademia.database.IDBAdapter;
+import edu.utn.trackademia.entities.Course;
 import edu.utn.trackademia.entities.User;
 import edu.utn.trackademia.entities.UserSession;
 
@@ -19,6 +20,7 @@ import java.util.List;
  *
  * @author jefte
  */
+
 public class UserDAO {
 
     private IDBAdapter adapter;
@@ -60,6 +62,38 @@ public class UserDAO {
         });
                 
         return students;
+    }
+    
+    public List<Course> getCourses(int id_user){
+        List<Course> courses = new ArrayList<>();
+        try {
+            String consultSQL = " SELECT c.nombre_curso, g.numero_grupo, g.numero_aula, g.horario"
+                    + "FROM matriculas m INNER JOIN matriculas_grupos mg "
+                    + "ON m.id_matricula = mg.id_matricula "
+                    + "INNER JOIN grupos g ON mg.id_grupo = g.id_grupo "
+                    + "INNER JOIN cursos c ON g.curso = c.id_curso "
+                    + "WHERE m.id_estudiante = ?";
+            Connection connection = this.adapter.getConnection();
+            PreparedStatement ps = connection.prepareStatement(consultSQL);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                // Retrieve courses
+                String course_name = resultSet.getString("nombre_curso");
+                int group_number = resultSet.getInt("numero_grupo");
+                int room_number = resultSet.getInt("numero_aula");
+                String schedule = resultSet.getString("horario");
+
+                // Create a User instance with the idUsuario
+                courses.add(new Course (course_name, group_number, room_number, schedule));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            adapter.disconnect();
+        }
+
+        return courses;
     }
 
     //Getting a list of users (?) obvious

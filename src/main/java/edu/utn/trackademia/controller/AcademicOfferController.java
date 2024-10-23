@@ -93,7 +93,7 @@ public class AcademicOfferController implements Initializable {
         try {
             int idUsuario = UserSession.getInstance().getIdUsuario();
             matriculaService.matricularEstudiante(idUsuario, seleccionados);
-            Alerts.show(AlertType.CONFIRMATION, "Succes", "You`ve been enrolled succesfully!");
+            Alerts.show(AlertType.INFORMATION, "Succes", "You`ve been enrolled succesfully!");
             MenuController.initGui(logout);
         } catch (SQLException e) {
             e.printStackTrace();
