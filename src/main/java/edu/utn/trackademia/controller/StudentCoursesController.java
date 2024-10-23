@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  *
  * @author jefte
  */
-public class StudentManagementController implements Initializable {
+public class StudentCoursesController implements Initializable {
 
     @FXML
     private ImageView logout;
