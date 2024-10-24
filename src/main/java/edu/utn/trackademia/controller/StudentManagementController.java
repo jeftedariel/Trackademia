@@ -6,6 +6,7 @@ package edu.utn.trackademia.controller;
 
 import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.UserDAO;
+import edu.utn.trackademia.entities.Grupo;
 import edu.utn.trackademia.entities.User;
 import edu.utn.trackademia.entities.UserSession;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -96,14 +97,15 @@ public class StudentManagementController implements Initializable {
     
     
     private void selectStudent(){
-         ObservableList<Integer> selectedIndices = table.getSelectionModel().getSelectedIndices();
-
-        if (selectedIndices.isEmpty()) {
+         ObservableList<String> selected = FXCollections.observableArrayList();
+          
+        if (table.getSelectionModel().getSelectedIndices().isEmpty()) {
             Alerts.show(Alert.AlertType.WARNING, "Warning", "Please, select a Student.");
             return;
         }
+        User user = (User) table.getItems().get(table.getSelectionModel().getSelectedIndex());
         
-        StudentCoursesController.initGui(logout, selectedIndices.get(0));
+        StudentCoursesController.initGui(logout, user.idUsuario());
     }
 
     public static void initGui(ImageView img) {

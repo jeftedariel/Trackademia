@@ -82,6 +82,7 @@ public class StudentCoursesController implements Initializable {
         table.getColumns().addAll(course_name, group_number, room_number,schedule );
 
         UserDAO uDao = new UserDAO();
+        System.out.println(StudentCoursesController.student_id +"->"+ uDao.getCourses(StudentCoursesController.student_id));
         ObservableList<Course> courses = FXCollections.observableArrayList(uDao.getCourses(StudentCoursesController.student_id));
         table.setItems(courses);
     }
