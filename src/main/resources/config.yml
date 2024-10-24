@@ -5,5 +5,5 @@ database:
   port: 3306
   username: root
   password: 1234
-  # MariaDBAdapter, MySQLAdapter  <-  DBs available
+  # MariaDBAdapter, MySQLAdapter <-  DBs available
   type: MariaDBAdapter
