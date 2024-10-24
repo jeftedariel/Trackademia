@@ -32,7 +32,6 @@ public class AcademicOfferDAO {
     public List<Grupo> getGrupos(int idUsuario) {
         List<Grupo> grupos = new ArrayList<>();
         try {
-            // Consulta SQL para obtener los grupos disponibles que el estudiante no ha matriculado
             String consultSQL = "SELECT g.id_grupo, g.numero_grupo, g.numero_aula, g.horario, g.capacidad_maxima, c.nombre_curso, c.creditos, c.horas_lectivas "+
                 "FROM grupos g "+
                 "INNER JOIN cursos c ON g.curso = c.id_curso "+
@@ -76,14 +75,4 @@ public class AcademicOfferDAO {
         return grupos;
     }
 
-    /*"SELECT g.id_grupo, g.numero_grupo, g.numero_aula, g.horario, g.capacidad_maxima, " +
-                            "c.nombre_curso, c.creditos, c.horas_lectivas " +
-                            "FROM grupos g " +
-                            "INNER JOIN cursos c ON g.curso = c.id_curso " +
-                            "INNER JOIN usuarios u ON u.nivel = c.nivel " +
-                            "LEFT JOIN matriculas m ON m.id_estudiante = u.id_usuario " +
-                            "LEFT JOIN matriculas_grupos mg ON mg.id_matricula = m.id_matricula AND mg.id_grupo = g.id_grupo " +
-                            "WHERE u.id_usuario = ? " +
-                            "AND u.nivel = c.nivel " +
-                            "AND mg.id_matricula_grupo IS NULL";*/
 }

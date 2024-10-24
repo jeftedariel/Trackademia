@@ -37,7 +37,7 @@ import javafx.scene.control.SelectionMode;
  *
  * @author jefte
  */
-public class AcademicOfferControler implements Initializable {
+public class AcademicOfferController implements Initializable {
 
     int idUsuario;
 

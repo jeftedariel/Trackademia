@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.mfxcore.controls.Label?>
 <?import io.github.palexdev.mfxcore.controls.Text?>
 <?import javafx.scene.Cursor?>
@@ -81,5 +82,6 @@
                </children></AnchorPane>
         </content>
       </TitledPane>
+      <MFXButton fx:id="abrirGrupo" layoutX="38.0" layoutY="366.0" text="Grupos" />
    </children>
 </AnchorPane>

@@ -54,6 +54,9 @@ public class MenuController implements Initializable {
 
     @FXML
     private Pane enrollCourse;
+    
+    @FXML
+    private MFXButton abrirGrupo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,6 +67,8 @@ public class MenuController implements Initializable {
         enrollCourse.setOnMouseClicked(event -> openAcademicOffer());
 
         this.username.setText(UserSession.getInstance().getUserFullName());
+        
+        abrirGrupo.setOnAction(event -> abrirGrupos());
 
         userManagement.setOnMouseClicked(event -> {
             userManagement();
@@ -130,6 +135,23 @@ public class MenuController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) logout.getScene().getWindow();
         stage.setScene(scene);
+    }
+    
+    private void abrirGrupos() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Group.fxml"));
+        Parent root = loader.load();
+
+        // Create a new stage (window)
+        Stage stage = new Stage();
+        stage.setTitle("Group");
+
+        // Set the scene with the loaded FXML
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (Exception e) {
+        e.printStackTrace(); 
+      }
     }
 
 }
