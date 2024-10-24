@@ -4,6 +4,7 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.GroupDAO;
 import edu.utn.trackademia.entities.Grupo;
 import edu.utn.trackademia.entities.UserSession;
@@ -19,14 +20,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -55,7 +55,7 @@ public class GroupController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         logout.setOnMouseClicked(event -> {
-            logout();
+            MenuController.initGui(logout);
         });
         
         gdao = new GroupDAO();
@@ -68,48 +68,20 @@ public class GroupController implements Initializable {
         setupTable(idUsuario);
     }
     
-    private void logout() {
-    try {
-        Stage currentStage = (Stage) logout.getScene().getWindow();
-        currentStage.close();
-    } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
     
     private void verRubros() {
     Grupo seleccionado = table.getSelectionModel().getSelectedItem();
 
     if (seleccionado == null) {
-        mostrarAlerta("Warning", "Please, select a group.");
+        Alerts.show(AlertType.WARNING,"Warning", "Please, select a group.");
         return;
     }
 
     int idGrupo = seleccionado.getIdGrupo();
 
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Rubros.fxml"));
-        RubrosController rubrosController = new RubrosController(idGrupo);
-        loader.setController(rubrosController);
-        Parent root = loader.load();
-
-        Stage stage = new Stage();
-        stage.setTitle("Rubros");
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();  
-    } catch (IOException e) {
-        e.printStackTrace();
-      }
+    RubrosController.initGui(logout, idGrupo);
     }
     
-    private void mostrarAlerta(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
     
     private void setupTable(int idUsuario) {
         
@@ -150,6 +122,19 @@ public class GroupController implements Initializable {
         table.setItems(grupos);
         
         System.out.println(gdao.hasAvailableGroups(idUsuario));
+    }
+    
+    public static void initGui(ImageView img) {
+
+        try {
+            Parent root = FXMLLoader.load(Trackademia.class.getResource("/fxml/Group.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) img.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+
     }
     
 }
