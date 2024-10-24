@@ -67,7 +67,7 @@ public class UserDAO {
     public List<Course> getCourses(int id_user){
         List<Course> courses = new ArrayList<>();
         try {
-            String consultSQL = "SELECT c.nombre_curso, g.numero_grupo, g.numero_aula, g.horario FROM matriculas m INNER JOIN matriculas_grupos mg ON m.id_matricula = mg.id_matricula INNER JOIN grupos g ON mg.id_grupo = g.id_grupo INNER JOIN cursos c ON g.curso = c.id_curso WHERE m.id_estudiante = ?";
+            String consultSQL = "SELECT c.nombre_curso, g.numero_grupo, g.horario, g.numero_aula, g.plataforma, g.enlance FROM matriculas m INNER JOIN matriculas_grupos mg ON m.id_matricula = mg.id_matricula INNER JOIN grupos g ON mg.id_grupo = g.id_grupo INNER JOIN cursos c ON g.curso = c.id_curso WHERE m.id_estudiante = ?;";
             Connection connection = this.adapter.getConnection();
             PreparedStatement ps = connection.prepareStatement(consultSQL);
             ps.setInt(1, id_user);
@@ -77,11 +77,13 @@ public class UserDAO {
                 // Retrieve courses
                 String course_name = resultSet.getString("nombre_curso");
                 int group_number = resultSet.getInt("numero_grupo");
-                int room_number = resultSet.getInt("numero_aula");
                 String schedule = resultSet.getString("horario");
-
+                int room_number = resultSet.getInt("numero_aula");
+                String platform = resultSet.getString("plataforma");
+                String url = resultSet.getString("enlance");
+                
                 // Create a User instance with the idUsuario
-                courses.add(new Course (course_name, group_number, room_number, schedule));
+                courses.add(new Course (course_name, group_number, room_number, schedule, platform, url));
             }
         } catch (Exception e) {
             e.printStackTrace();

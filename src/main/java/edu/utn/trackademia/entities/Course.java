@@ -8,6 +8,6 @@ package edu.utn.trackademia.entities;
  *
  * @author jefte
  */
-public record Course(String course_name,int group_number,int room_number, String schedule) {
+public record Course(String course_name,int group_number,int room_number, String schedule, String platform, String url) {
 
 }
