@@ -4,6 +4,7 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.AcademicOfferDAO;
 import edu.utn.trackademia.dao.RoleDAO;
 import edu.utn.trackademia.entities.UserSession;
@@ -19,11 +20,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -61,7 +60,7 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
-            logout();
+            LoginController.initGui(logout);
         });
 
         enrollCourse.setOnMouseClicked(event -> openAcademicOffer());
@@ -79,62 +78,40 @@ public class MenuController implements Initializable {
 
         //Sets visible both panels (Administration & Educational) if permissions 'Show Educational' or 'Show Administration' are present
         educational.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational")));
-        if(!rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational"))){
+        if (!rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Educational"))) {
             administration.setLayoutY(74);
         }
         administration.setVisible(rdao.getPermissions(UserSession.getInstance().getRole()).stream().anyMatch(n -> n.name().equals("Show Administration")));
     }
 
-    private void logout() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-            Stage stage = new Stage();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Trackademia");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/assets/icon.png")));
-            stage.show();
-
-            Stage currentStage = (Stage) logout.getScene().getWindow();
-            currentStage.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void openAcademicOffer() {
         Parent root = null;
         AcademicOfferDAO gdao = new AcademicOfferDAO();
-        if(!gdao.hasAvailableGroups(UserSession.getInstance().getIdUsuario())){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("");
-            alert.setHeaderText(null);
-            alert.setContentText("There's no available enrollments.");
-            alert.showAndWait();
+        if (!gdao.hasAvailableGroups(UserSession.getInstance().getIdUsuario())) {
+            Alerts.show(Alert.AlertType.INFORMATION, "Info", "There's no available enrollments");
             return;
         }
-        
-        try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/AcademicOffer.fxml"));
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logout.getScene().getWindow();
-        stage.setScene(scene);
-        
+        AcademicOfferController.initGui(logout);
+
     }
 
     public void userManagement() {
-        Parent root = null;
+        StudentManagementController.initGui(logout);
+        
+    }
+
+    public static void initGui(ImageView img) {
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/UserManagement.fxml"));
+            FXMLLoader loader = new FXMLLoader(Trackademia.class.getResource("/fxml/Menu.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = (Stage) img.getScene().getWindow();
+
+            stage.setScene(scene);
+            stage.centerOnScreen();
         } catch (IOException e) {
-            System.out.println("Error: " + e);
+            e.printStackTrace();
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logout.getScene().getWindow();
-        stage.setScene(scene);
     }
     
     private void abrirGrupos() {
@@ -153,5 +130,4 @@ public class MenuController implements Initializable {
         e.printStackTrace(); 
       }
     }
-
 }

@@ -4,6 +4,7 @@
  */
 package edu.utn.trackademia.controller;
 
+import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.AcademicOfferDAO;
 import edu.utn.trackademia.dao.MatriculaService;
 import edu.utn.trackademia.entities.Grupo;
@@ -25,12 +26,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.SelectionMode;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -58,7 +57,7 @@ public class AcademicOfferController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         logout.setOnMouseClicked(event -> {
-            menu();
+            MenuController.initGui(logout);
         });
 
         matriculaService = new MatriculaService();
@@ -77,7 +76,7 @@ public class AcademicOfferController implements Initializable {
         ObservableList<Integer> selectedIndices = table.getSelectionModel().getSelectedIndices();
 
         if (selectedIndices.isEmpty()) {
-            mostrarAlerta("Warning", "Please, select at least one group.");
+            Alerts.show(AlertType.WARNING, "Warning", "Please, select at least one group.");
             return;
         }
 
@@ -94,20 +93,12 @@ public class AcademicOfferController implements Initializable {
         try {
             int idUsuario = UserSession.getInstance().getIdUsuario();
             matriculaService.matricularEstudiante(idUsuario, seleccionados);
-            mostrarAlerta("Succes", "You`ve been enrolled succesfully!");
-            menu();
+            Alerts.show(AlertType.INFORMATION, "Succes", "You`ve been enrolled succesfully!");
+            MenuController.initGui(logout);
         } catch (SQLException e) {
             e.printStackTrace();
-            mostrarAlerta("Error", "There was an error while enrolling a course, please try again.");
+            Alerts.show(AlertType.ERROR, "Error", "There was an error while enrolling a course, please try again.");
         }
-    }
-
-    private void mostrarAlerta(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     private void setupTable(int idUsuario) {
@@ -150,16 +141,17 @@ public class AcademicOfferController implements Initializable {
         System.out.println(gdao.hasAvailableGroups(idUsuario));
     }
 
-    public void menu() {
-        Parent root = null;
+    public static void initGui(ImageView img) {
+
         try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
+            Parent root = FXMLLoader.load(Trackademia.class.getResource("/fxml/AcademicOffer.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) img.getScene().getWindow();
+            stage.setScene(scene);
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logout.getScene().getWindow();
-        stage.setScene(scene);
+
     }
 
 }
