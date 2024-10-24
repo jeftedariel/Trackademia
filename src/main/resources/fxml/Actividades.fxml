@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.mfxcore.controls.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -9,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" >
     <children>
         <Pane layoutY="-2.0" prefHeight="58.0" prefWidth="1280.0" style="-fx-background-color: #19355c;">
             <children>
@@ -34,6 +33,5 @@
             <columns>
             </columns>
         </TableView>
-      <MFXButton fx:id="verRubros" layoutX="14.0" layoutY="146.0" text="Ver Actividades" />
     </children>
 </AnchorPane>

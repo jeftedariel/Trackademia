@@ -8,7 +8,7 @@ import edu.utn.trackademia.Trackademia;
 import edu.utn.trackademia.dao.RubroDAO;
 import edu.utn.trackademia.entities.Rubro;
 import edu.utn.trackademia.entities.UserSession;
-import java.io.IOException;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -46,11 +47,15 @@ public class RubrosController implements Initializable {
 
     @FXML
     private Label username;
+    
     @FXML
     private ImageView logout;
 
     @FXML
-    private TableView tableView;
+    private TableView<Rubro> tableView;
+    
+    @FXML
+    private MFXButton verRubros;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,9 +64,25 @@ public class RubrosController implements Initializable {
         });
 
         setRubros(idGrupo);
+        
         this.username.setText(UserSession.getInstance().getUserFullName());
-
         this.idUsuario = UserSession.getInstance().getIdUsuario();
+        
+        verRubros.setOnAction(event -> verActividades());
+    }
+    
+    private void verActividades() {
+        
+    Rubro seleccionado = tableView.getSelectionModel().getSelectedItem();
+
+    if (seleccionado == null) {
+        Alerts.show(Alert.AlertType.WARNING,"Warning", "Please, select an activity.");
+        return;
+    }
+
+    int idRubro = seleccionado.getId_rubro();
+
+    ActividadesController.initGui(logout, idRubro);
     }
 
     private void setRubros(int idGrupo) {
