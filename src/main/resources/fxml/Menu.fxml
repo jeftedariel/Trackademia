@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.mfxcore.controls.Label?>
 <?import io.github.palexdev.mfxcore.controls.Text?>
 <?import javafx.scene.Cursor?>
@@ -37,12 +36,29 @@
                <children>
                   <Pane fx:id="enrollCourse" layoutX="29.0" layoutY="27.0" prefHeight="200.0" prefWidth="187.0">
                      <children>
-                        <ImageView fitHeight="123.0" fitWidth="99.0" layoutX="44.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="123.0" fitWidth="99.0" layoutX="44.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../assets/enroll.png" />
                            </image>
                         </ImageView>
                         <Text fill="#5780d4" layoutX="20.0" layoutY="164.0" text="Enroll a Course">
+                           <font>
+                              <Font name="Poppins Black" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
+                  <Pane fx:id="enrolledCourses" layoutX="303.0" layoutY="27.0" prefHeight="200.0" prefWidth="187.0">
+                     <children>
+                        <ImageView fitHeight="123.0" fitWidth="99.0" layoutX="44.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/book.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#5780d4" layoutX="10.0" layoutY="163.0" text="Enrolled Courses" textAlignment="CENTER">
                            <font>
                               <Font name="Poppins Black" size="19.0" />
                            </font>
@@ -79,9 +95,25 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Pane>
+                  <Pane fx:id="courseGroups" layoutX="308.0" layoutY="27.0" prefHeight="200.0" prefWidth="187.0">
+                     <children>
+                        <ImageView fitHeight="123.0" fitWidth="99.0" layoutX="44.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/group.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#5780d4" layoutX="20.0" layoutY="150.0" text="Course Groups">
+                           <font>
+                              <Font name="Poppins Black" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Pane>
                </children></AnchorPane>
         </content>
       </TitledPane>
-      <MFXButton fx:id="abrirGrupo" layoutX="38.0" layoutY="366.0" text="Grupos" />
    </children>
 </AnchorPane>

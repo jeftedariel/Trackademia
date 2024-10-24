@@ -56,6 +56,12 @@ public class MenuController implements Initializable {
     
     @FXML
     private MFXButton abrirGrupo;
+    
+    @FXML
+    private Pane enrolledCourses;
+    
+    @FXML
+    private Pane courseGroups;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,7 +73,8 @@ public class MenuController implements Initializable {
 
         this.username.setText(UserSession.getInstance().getUserFullName());
         
-        abrirGrupo.setOnAction(event -> abrirGrupos());
+        enrolledCourses.setOnMouseClicked(event -> abrirGrupos());
+        courseGroups.setOnMouseClicked(event -> abrirGrupos());
 
         userManagement.setOnMouseClicked(event -> {
             userManagement();
