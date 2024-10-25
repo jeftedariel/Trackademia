@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Pane layoutY="-2.0" prefHeight="58.0" prefWidth="1280.0" style="-fx-background-color: #19355c;">
+            <children>
+                <ImageView fx:id="logout" fitHeight="30.0" fitWidth="30.0" layoutX="1224.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/back.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="user" fitHeight="30.0" fitWidth="44.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../assets/user.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="username" layoutX="65.0" layoutY="14.0" prefHeight="31.0" prefWidth="304.0" text="Name Surname" textFill="WHITE">
+                    <font>
+                        <Font name="Poppins Regular" size="18.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <TableView fx:id="tableView" layoutX="14.0" layoutY="256.0" prefHeight="450.0" prefWidth="1257.0">
+            <columns>
+            </columns>
+        </TableView>
+      <MFXButton fx:id="verRubros" layoutX="103.0" layoutY="142.0" text="Show Activities">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/loockup.png" />
+               </image>
+            </ImageView>
+         </graphic></MFXButton>
+      <PieChart fx:id="evaluationsChart" layoutX="959.0" layoutY="72.0" prefHeight="177.0" prefWidth="226.0" />
+      <Pane fx:id="configEv" layoutX="293.0" layoutY="61.0" prefHeight="200.0" prefWidth="583.0">
+         <children>
+            <MFXButton fx:id="removeEvaluation" layoutX="94.0" layoutY="104.0" text="Remove Evaluation">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic></MFXButton>
+            <MFXButton fx:id="addEvaluation" disable="true" layoutX="107.0" layoutY="30.0" text="Add Evaluation">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic></MFXButton>
+            <MFXTextField fx:id="name" layoutX="331.0" layoutY="26.0" prefHeight="51.0" prefWidth="220.0" promptText="Name" />
+            <MFXTextField fx:id="percentage" layoutX="331.0" layoutY="100.0" prefHeight="51.0" prefWidth="220.0" promptText="Percentage" />
+         </children>
+      </Pane>
+    </children>
+</AnchorPane>
