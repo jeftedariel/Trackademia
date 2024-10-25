@@ -48,11 +48,11 @@ public class GroupDAO {
                 int numeroAula = resultSet.getInt("numero_aula");
                 String horario = resultSet.getString("horario");
                 int capacidadMaxima = resultSet.getInt("capacidad_maxima");
-                String nombreCurso = resultSet.getString("curso");
+                String id_curso = resultSet.getString("curso");
                 int creditos = resultSet.getInt("creditos");  // Retrieve creditos from cursos
                 int horasLectivas = resultSet.getInt("horas_lectivas");  // Retrieve horas_lectivas from cursos
 
-                Grupo grupo = new Grupo(idGrupo, numeroGrupo, numeroAula, horario, capacidadMaxima, nombreCurso, creditos, horasLectivas);
+                Grupo grupo = new Grupo(idGrupo, numeroGrupo, numeroAula, horario, capacidadMaxima, id_curso, creditos, horasLectivas);
                 grupos.add(grupo);
             }
         } catch (Exception e) {

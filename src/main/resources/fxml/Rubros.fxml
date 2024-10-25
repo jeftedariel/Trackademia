@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.mfxcore.controls.Label?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -34,6 +36,15 @@
             <columns>
             </columns>
         </TableView>
-      <MFXButton fx:id="verRubros" layoutX="14.0" layoutY="146.0" text="Ver Actividades" />
+      <MFXButton fx:id="verRubros" layoutX="173.0" layoutY="135.0" text="Show Activities" />
+      <PieChart fx:id="evaluationsChart" layoutX="959.0" layoutY="72.0" prefHeight="177.0" prefWidth="226.0" />
+      <Pane fx:id="configEv" layoutX="293.0" layoutY="61.0" prefHeight="200.0" prefWidth="583.0">
+         <children>
+            <MFXButton fx:id="removeEvaluation" layoutX="23.0" layoutY="77.0" text="Remove Evaluation" />
+            <MFXButton fx:id="addEvaluation" disable="true" layoutX="193.0" layoutY="77.0" text="Add Evaluation" />
+            <MFXTextField fx:id="name" layoutX="331.0" layoutY="26.0" prefHeight="51.0" prefWidth="220.0" promptText="Name" />
+            <MFXTextField fx:id="percentage" layoutX="331.0" layoutY="100.0" prefHeight="51.0" prefWidth="220.0" promptText="Percentage" />
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

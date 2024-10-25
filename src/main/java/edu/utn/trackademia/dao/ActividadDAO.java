@@ -33,7 +33,7 @@ public class ActividadDAO {
         try {
              String consultSQL = "SELECT a.id_actividad, a.nombre_actividad, a.descripcion, a.valor, a.fecha_entrega " +
                    "FROM actividades a " +
-                   "INNER JOIN activides_rubros ar ON a.id_actividad = ar.id_actividad " +
+                   "INNER JOIN actividades_rubros ar ON a.id_actividad = ar.id_actividad " +
                    "INNER JOIN rubros r ON ar.id_rubro = r.id_rubro " +
                    "WHERE r.id_rubro = ?";
              
@@ -59,5 +59,8 @@ public class ActividadDAO {
         }
         return actividades;
     }
+    
+
+
     
 }

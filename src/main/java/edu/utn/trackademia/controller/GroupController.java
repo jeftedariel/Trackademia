@@ -78,8 +78,8 @@ public class GroupController implements Initializable {
     }
 
     int idGrupo = seleccionado.getIdGrupo();
-
-    RubrosController.initGui(logout, idGrupo);
+    int courseId = Integer.valueOf(seleccionado.getCurso());
+    RubrosController.initGui(logout, idGrupo, courseId);
     }
     
     
