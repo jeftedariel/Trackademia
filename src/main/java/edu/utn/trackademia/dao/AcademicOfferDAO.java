@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 public class AcademicOfferDAO {
 
     private IDBAdapter adapter;
-
+    
     public AcademicOfferDAO() {
         this.adapter = DBAdapterFactory.getAdapter();
     }
@@ -74,5 +74,7 @@ public class AcademicOfferDAO {
         }
         return grupos;
     }
-
 }
+
+
+

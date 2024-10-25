@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -62,6 +63,9 @@ public class MenuController implements Initializable {
     
     @FXML
     private Pane courseGroups;
+    
+    @FXML
+    private PieChart test;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,8 +77,8 @@ public class MenuController implements Initializable {
 
         this.username.setText(UserSession.getInstance().getUserFullName());
         
-        enrolledCourses.setOnMouseClicked(event -> GroupController.initGui(logout));
-        courseGroups.setOnMouseClicked(event -> GroupController.initGui(logout));
+        enrolledCourses.setOnMouseClicked(event ->  EnrolledGroupsController.initGui(logout, UserSession.getInstance().getIdUsuario()));
+        courseGroups.setOnMouseClicked(event -> GroupController.initGui(logout,UserSession.getInstance().getIdUsuario()));
 
         userManagement.setOnMouseClicked(event -> {
             userManagement();

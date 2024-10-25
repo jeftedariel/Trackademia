@@ -35,7 +35,7 @@ import javafx.stage.Stage;
  */
 public class GroupController implements Initializable {
     
-    private int idUsuario;
+    private static int idUsuario;
     
     private GroupDAO gdao;
     
@@ -71,7 +71,7 @@ public class GroupController implements Initializable {
     
     private void verRubros() {
     Grupo seleccionado = table.getSelectionModel().getSelectedItem();
-
+    
     if (seleccionado == null) {
         Alerts.show(AlertType.WARNING,"Warning", "Please, select a group.");
         return;
@@ -124,8 +124,9 @@ public class GroupController implements Initializable {
         System.out.println(gdao.hasAvailableGroups(idUsuario));
     }
     
-    public static void initGui(ImageView img) {
-
+    public static void initGui(ImageView img, int id_usuario) {
+        GroupController.idUsuario = id_usuario;
+        
         try {
             Parent root = FXMLLoader.load(Trackademia.class.getResource("/fxml/Group.fxml"));
             Scene scene = new Scene(root);
