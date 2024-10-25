@@ -34,6 +34,13 @@
         <columns>
         </columns>
       </TableView>
-      <MFXButton fx:id="matricular" layoutX="39.0" layoutY="142.0" text="Matricular" />
+      <MFXButton fx:id="matricular" layoutX="596.0" layoutY="155.0" text="Enroll">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/pen.png" />
+               </image>
+            </ImageView>
+         </graphic></MFXButton>
    </children>
 </AnchorPane>

@@ -33,6 +33,13 @@
         <columns>
         </columns>
       </TableView>
-      <MFXButton fx:id="rubros" layoutX="609.0" layoutY="155.0" text="Rubros" />
+      <MFXButton fx:id="rubros" layoutX="609.0" layoutY="155.0" text="Rubros">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/pen.png" />
+               </image>
+            </ImageView>
+         </graphic></MFXButton>
    </children>
 </AnchorPane>

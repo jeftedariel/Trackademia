@@ -36,12 +36,33 @@
             <columns>
             </columns>
         </TableView>
-      <MFXButton fx:id="verRubros" layoutX="173.0" layoutY="135.0" text="Show Activities" />
+      <MFXButton fx:id="verRubros" layoutX="103.0" layoutY="142.0" text="Show Activities">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/loockup.png" />
+               </image>
+            </ImageView>
+         </graphic></MFXButton>
       <PieChart fx:id="evaluationsChart" layoutX="959.0" layoutY="72.0" prefHeight="177.0" prefWidth="226.0" />
       <Pane fx:id="configEv" layoutX="293.0" layoutY="61.0" prefHeight="200.0" prefWidth="583.0">
          <children>
-            <MFXButton fx:id="removeEvaluation" layoutX="23.0" layoutY="77.0" text="Remove Evaluation" />
-            <MFXButton fx:id="addEvaluation" disable="true" layoutX="193.0" layoutY="77.0" text="Add Evaluation" />
+            <MFXButton fx:id="removeEvaluation" layoutX="94.0" layoutY="104.0" text="Remove Evaluation">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic></MFXButton>
+            <MFXButton fx:id="addEvaluation" disable="true" layoutX="107.0" layoutY="30.0" text="Add Evaluation">
+               <graphic>
+                  <ImageView fitHeight="44.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic></MFXButton>
             <MFXTextField fx:id="name" layoutX="331.0" layoutY="26.0" prefHeight="51.0" prefWidth="220.0" promptText="Name" />
             <MFXTextField fx:id="percentage" layoutX="331.0" layoutY="100.0" prefHeight="51.0" prefWidth="220.0" promptText="Percentage" />
          </children>
