@@ -12,7 +12,6 @@ A simple & OpenSource academic management system designed to streamline course o
 - SQL (Support for Mariadb, Mysql & Postgre)
 
 ## How to Contribute 🛠️
-Here is the translation of the instructions to English:
 
 1. **Create an issue or use an existing one**
 
